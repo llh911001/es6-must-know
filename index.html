@@ -1,0 +1,1271 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>ES6 必知必会</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/moon.css" id="theme">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <style type="text/css">
+      .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+        text-transform: none;
+      }
+      .reveal ol, .reveal dl, .reveal ul {
+        display: block;
+        font-size: .7em;
+      }
+      .reveal li {
+        margin: .5em 0;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+
+        <section>
+          <h1>ES6 必知必会</h1>
+            <br/>
+            <br/>
+            <br/>
+            <p>llh911001@gmail.com</p>
+            <p>2016/1/13</p>
+        </section>
+
+        <section>
+          <h2>变量和参数</h2>
+        </section>
+
+        <section>
+          <section>
+            <h3>let 声明</h3>
+            <div class="fragment">
+              <ul>
+                <li>块级作用域</li>
+              </ul>
+              <pre><code class="hljs" data-trim contenteditable>
+if(true) {
+  let a = 1
+}
+console.log(a)
+// a is not defined
+              </code></pre>
+            </div>
+            <div class="fragment">
+              <ul>
+                <li>不可重复声明</li>
+              </ul>
+              <pre><code class="hljs" data-trim contenteditable>
+let a = 1
+let a = 2
+// Duplicate declaration "a"
+              </code></pre>
+            </div>
+          </section>
+          <section>
+            <ul>
+              <li>以前</li>
+            </ul>
+            <pre><code class="javascript hljs" data-trim contenteditable>
+for (var i=0; i<10; i++) {
+  setTimeout(~function(a) {
+    console.log(a)
+  }(i), 100)
+}
+
+// 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+            </code></pre>
+
+            <div class="fragment">
+              <ul>
+                <li>现在</li>
+              </ul>
+              <pre><code class="javascript hljs" data-trim contenteditable>
+for (let i=0; i<10; i++) {
+  setTimeout(() => {
+    console.log(i)
+  }, 100)
+}
+
+// 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+              </code></pre>
+            </div>
+          </section>
+        </section>
+
+        <section>
+          <h3>const 声明</h3>
+          <div class="fragment">
+            <ul>
+              <li>定义常量</li>
+            </ul>
+            <pre><code class="javascript hljs" data-trim contenteditable>
+const CONSTANT = 'a constant'
+
+CONSTANT = 'something else'
+// "CONSTANT" is read-only
+// 重新为一个常量赋值会报错
+            </code></pre>
+          </div>
+          <div class="fragment">
+            <ul>
+              <li>不可只声明不赋值</li>
+            </ul>
+            <pre><code class="javascript hljs" data-trim contenteditable>
+const CONSTANT
+// Syntax error: Unexpected token
+            </code></pre>
+          </div>
+          <div class="fragment">
+            <ul>
+              <li>对象常量是可变的</li>
+            </ul>
+            <pre><code class="javascript hljs" data-trim contenteditable>
+const CONSTANT = {foo: 1}
+CONSTANT.foo = 2
+// 正常运行
+            </code></pre>
+          </div>
+        </section>
+
+        <section>
+          <section>
+            <h3>默认参数</h3>
+            <div class="fragment">
+              <ul>
+                <li>以前</li>
+              </ul>
+              <pre><code class="javascript hljs" data-trim contenteditable>
+function work(name) {
+  name = name || 'Bender'
+  return name
+}
+
+work()
+// Bender
+              </code></pre>
+            </div>
+            <div class="fragment">
+            <ul>
+              <li>现在</li>
+            </ul>
+            <pre><code class="javascript hljs" data-trim contenteditable>
+function work(name = 'Bender') {
+  return name
+}
+work()
+// Bender
+              </code></pre>
+            </div>
+          </section>
+          <section>
+            <ul>
+              <li>多个参数</li>
+            </ul>
+            <pre><code class="javascript hljs" data-trim contenteditable>
+function work(name = 'Bender', hobby = 'drinking') {
+  return `${name} likes ${hobby}`
+}
+
+work()
+// Bender likes drinking
+            </code></pre>
+            <div class="fragment">
+              <ul>
+                <li>与普通参数混合使用</li>
+              </ul>
+              <pre><code class="javascript hljs" data-trim contenteditable>
+function work(foo, name = 'Bender', hobby = 'drinking', bar) {
+  return `${name} likes ${hobby}`
+}
+
+work()
+// Bender likes drinking
+              </code></pre>
+            </div>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>rest 参数</h3>
+            <pre class="fragment"><code class="javascript hljs" data-trim contenteditable>
+function foo(...args) {
+  console.log(args);
+}
+
+foo(1, 2, 3)
+// [1, 2, 3]
+
+foo()
+// []
+            </code></pre>
+          </section>
+          <section>
+            <div>
+              <ul>
+                <li><code>...args</code> 只能出现在函数参数列表的最后一个位置</li>
+              </ul>
+              <pre><code class="javascript hljs" data-trim contenteditable>
+// 报错
+function foo(...args, name) { // Syntax error: Unexpected token
+  console.log(name)
+}
+
+// 正常运行
+function bar(name, ...args) {
+  console.log(name)
+}
+
+bar('Bender')
+// Bender
+              </code></pre>
+            </div>
+          </section>
+          <section>
+            <h3>告别 <code>arguments</code></h3>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>扩展运算符</h3>
+            <pre class="fragment"><code class="javascript hljs" data-trim contenteditable>
+function foo(a, b, c) {
+  return a + b + c
+}
+
+foo(...[1, 2, 3])
+// 6
+            </code></pre>
+          </section>
+          <section>
+            <div>
+              <ul>
+                <li>在一个数组中扩展另一个数组</li>
+              </ul>
+              <pre><code class="javascript hljs" data-trim contenteditable>
+let a = [3, 4, 5]
+let b = [1, 2, ...a, 6, 7]
+
+console.log(b)
+// [1, 2, 3, 4, 5, 6, 7]
+              </code></pre>
+            </div>
+            <div class="fragment">
+              <ul>
+                <li>给函数传的数组元素过多？</li>
+              </ul>
+              <pre><code class="javascript hljs" data-trim contenteditable>
+function foo(a, b, c) {
+  return a + b + c
+}
+
+foo(...[1, 2, 3, 4, 5, 6])
+// 6
+// 后面的被忽略了
+              </code></pre>
+            </div>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>解构赋值</h3>
+            <div class="fragment">
+              <ul>
+                <li>解构数组</li>
+              </ul>
+              <pre><code class="javascript hljs" data-trim contenteditable>
+let values = [42, 73]
+let [a, b] = values
+
+console.log(a, b)
+// 42, 73
+              </code></pre>
+            </div>
+            <div class="fragment">
+              <ul>
+                <li>解构对象</li>
+              </ul>
+              <pre><code class="javascript hljs" data-trim contenteditable>
+let bender = {name: 'Bender', hobby: 'drinking'}
+let {name, hobby} = bender
+
+console.log(name, hobby)
+// Bender, drinking
+              </code></pre>
+            </div>
+          </section>
+          <section>
+            <div>
+              <ul>
+                <li>调换变量值</li>
+              </ul>
+              <pre><code class="javascript hljs" data-trim contenteditable>
+let a = 1, b = 2
+[a, b] = [b, a]
+
+console.log(a, b)
+// 2, 1
+              </code></pre>
+            </div>
+            <div class="fragment">
+              <ul>
+                <li>等式两边的数组元素位置是严格对应的</li>
+              </ul>
+              <pre><code class="javascript hljs" data-trim contenteditable>
+let values = [1, 2, 3]
+let [, a, b, c] = values
+
+console.log(a, b, c)
+// 2, 3, undefined
+              </code></pre>
+            </div>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>模版字符串</h3>
+            <pre class="fragment"><code class="javascript hljs" data-trim contenteditable>
+let name = 'Bender'
+let result = `Hello, ${name}`
+
+console.log(result)
+// Hello, Bender
+            </code></pre>
+          </section>
+          <section>
+            <div>
+              <ul>
+                <li>模版字符串中可以有表达式</li>
+              </ul>
+              <pre><code class="javascript hljs" data-trim contenteditable>
+let a = 42, b = 73
+let result = `a + b is ${a + b}`
+
+console.log(result)
+// a + b is 115
+              </code></pre>
+            </div>
+            <div class="fragment">
+              <ul>
+                <li>模版字符串中可以换行</li>
+              </ul>
+              <pre><code class="javascript hljs" data-trim contenteditable>
+let result = `Hello
+ there, Bender!
+`
+
+console.log(result)
+// Hello\n there, Bender!
+              </code></pre>
+            </div>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>带标签的模版字符串</h3>
+            <pre class="fragment"><code class="javascript hljs" data-trim contenteditable>
+let name = 'Bender'
+let result = test `Hello,${name}!`
+
+function test(literals, ...values) {
+  console.log(literals) // ['Hello,', '!']
+  console.log(values)   // ['Bender']
+  return 'test'
+}
+
+console.log(result)
+// test
+            </code></pre>
+            <ul>
+              <li class="fragment">标签函数与模版字符串之间可以有多个空格，甚至换行符</li>
+              <li class="fragment">标签函数返回的值是模版字符串的最终结果</li>
+            </ul>
+          </section>
+        </section>
+
+        <section>
+          <h2>类</h2>
+        </section>
+
+        <section>
+          <section>
+            <h3>class 关键字</h3>
+            <pre class="fragment"><code class="javascript hljs" data-trim contenteditable>
+class Animal {
+  // ...
+}
+
+let animal = new Animal()
+           </code></pre>
+          </section>
+          <section>
+            <ul>
+              <li>constructor 方法</li>
+            </ul>
+            <pre><code class="javascript hljs" data-trim contenteditable>
+class Animal {
+  constructor(name) {
+    this._name = name
+  }
+
+  getName() {
+    return this._name
+  }
+}
+
+let animal = new Animal('kitty')
+animal.getName()
+// kitty
+            </code></pre>
+          </section>
+          <section>
+            <ul>
+              <li>属性</li>
+            </ul>
+            <pre><code class="javascript hljs" data-trim contenteditable>
+class Animal {
+  constructor(name) {
+    this._name = name
+  }
+
+  get name() {
+    return this._name
+  }
+
+  set name(newName) {
+    this._name = newName
+  }
+}
+
+let animal = new Animal('kitty')
+console.log(animal.name)
+// kitty
+
+animal.name = 'doge'
+console.log(animal.name)
+// doge
+
+            </code></pre>
+          </section>
+          <section>
+            <ul>
+              <li>静态方法</li>
+            </ul>
+            <pre><code class="javascript hljs" data-trim contenteditable>
+class Animal {
+  constructor(name) {
+    this._name = name
+  }
+
+  static foo() {
+    return 'I am a static method'
+  }
+}
+
+let animal = new Animal('kitty')
+
+animal.foo()
+// animal.foo is not a function
+
+Animal.foo()
+// I am a static method
+            </code></pre>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>类的继承</h3>
+            <pre class="fragment"><code class="javascript hljs" data-trim contenteditable>
+class Animal {
+  constructor(name) {
+    this._name = name
+  }
+
+  get name() {
+    return this._name
+  }
+
+  set name(newName) {
+    this._name = newName
+  }
+
+  say() {
+    return 'I am an animal'
+  }
+}
+
+class Cat extends Animal {
+  say() {
+    return 'I am a cat'
+  }
+}
+
+let cat = new Cat('kitty')
+cat.name
+// kitty
+
+cat.say()
+// I am a cat
+           </code></pre>
+          </section>
+          <section>
+            <ul>
+              <li>在 constructor 方法中使用 super</li>
+            </ul>
+            <pre><code class="javascript hljs" data-trim contenteditable>
+class Cat extends Animal {
+  constructor(name, pet) {
+    super(name)
+    this._pet = pet
+  }
+
+  get pet() {
+    return this._pet
+  }
+}
+
+let cat = new Cat('kitty', 'Bender')
+console.log(cat.pet)
+// Bender
+            </code></pre>
+          </section>
+          <section>
+            <ul>
+              <li>在普通方法中使用 super</li>
+            </ul>
+            <pre><code class="javascript hljs" data-trim contenteditable>
+class Cat extends Animal {
+  // ...
+  say() {
+    return super() + '!'
+  }
+}
+
+// 或者
+class Cat extends Animal {
+  // ...
+  say() {
+    return super.say() + '!'
+  }
+}
+            </code></pre>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>类的本质</h3>
+            <pre class="fragment"><code class="javascript hljs" data-trim contenteditable>
+let cat = new Cat('kitty')
+
+cat instanceOf Cat
+// true
+
+cat instanceOf Animal
+// true
+            </code></pre>
+          </section>
+          <section>
+            <h3>语法糖</h3>
+          </section>
+        </section>
+
+        <section>
+          <h2>函数式特性</h2>
+        </section>
+
+        <section>
+          <section>
+            <h3>箭头函数</h3>
+            <pre class="fragment"><code class="javascript hljs" data-trim contenteditable>
+let add = (a, b) => a + y
+            </code></pre>
+          </section>
+          <section>
+            <ul>
+              <li>参数周围的括号</li>
+            </ul>
+            <pre><code class="javascript hljs" data-trim contenteditable>
+let add = (x, y) => x + y // 必需
+let square = x => x * x // 不必需
+let compute = () => square(add(5, 3)) // 必需
+
+let result = compute()
+// 64
+            </code></pre>
+          </section>
+          <section>
+            <ul>
+              <li>函数体的大括号</li>
+            </ul>
+            <pre><code class="javascript hljs" data-trim contenteditable>
+// 正常运行
+let add = (x, y) => x + y
+// 或者
+let add = (x, y) => { return x + y }
+
+// 返回一个对象 {a: 1}
+
+// 失败
+let test = () => { a: 1 }
+
+// 成功
+let test = () => ({ a: 1 })
+// 或者
+let test = () => {
+  return {a: 1}
+}
+           </code></pre>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>箭头函数和 this</h3>
+            <div class="fragment">
+              <ul>
+                <li>以前</li>
+              </ul>
+              <pre><code class="javascript hljs" data-trim contenteditable>
+function A(name) {
+  this._name = name
+}
+
+A.prototype.later = function() {
+  var self = this
+
+  setTimeout(function() {
+    console.log(self._name)
+  }, 100)
+}
+
+var a = new A('Bender')
+a.later()
+// Bender
+              </code></pre>
+            </div>
+          </section>
+          <section>
+            <ul>
+              <li>现在</li>
+            </ul>
+            <pre><code class="javascript hljs" data-trim contenteditable>
+class A {
+  constructor(name) {
+    this._name = name
+  }
+
+  later() {
+    setTimeout(() => console.log(this._name), 100)
+  }
+
+}
+
+let a = new A('Bender')
+a.later()
+// Bender
+            </code></pre>
+          </section>
+          <section>
+            <ul>
+              <li>
+                <code>call</code> 和 <code>apply</code> 不影响 <code>this</code>
+              </li>
+            </ul>
+            <pre><code class="javascript hljs" data-trim contenteditable>
+class A {
+  constructor(name) {
+    this._name = name
+  }
+}
+
+let a = new A('Bender')
+
+a.foo = function() { console.log(this._name) }
+a.bar = () => { console.log(this._name) }
+
+a.foo.call({_name: 'foo'})
+// foo
+
+a.bar.call({_name: 'bar'})
+// Cannot read property '_name' of undefined
+            </code></pre>
+          </section>
+          <section>
+            <h3>告别 <code>self</code></h3>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>Symbol</h3>
+            <pre class="fragment"><code class="javascript hljs" data-trim contenteditable>
+let s1 = Symbol()
+
+s1.toString()
+// Symbol()
+type of s1
+// symbol
+
+let s2 = Symbol('a symbol')
+
+type of s2
+// symbol
+s2.toString()
+// Symbol(a symbol)
+            </code></pre>
+          </section>
+          <section>
+            <div>
+              <ul>
+                <li>无需 new 关键字</li>
+              </ul>
+              <pre><code class="javascript hljs" data-trim contenteditable>
+let s = new Symbol()
+// Symbol is not a constructor
+              </code></pre>
+            </div>
+            <div class="fragment">
+              <ul>
+                <li>唯一性</li>
+              </ul>
+              <pre><code class="javascript hljs" data-trim contenteditable>
+let s1 = Symbol('a symbol')
+let s2 = Symbol('a symbol')
+
+s1 === s2
+// false
+              </code></pre>
+            </div>
+          </section>
+          <section>
+            <ul>
+              <li>作为对象的属性</li>
+            </ul>
+            <pre><code class="javascript hljs" data-trim contenteditable>
+let foo = 'foo'
+let bar = Symbol()
+
+let obj = {
+  foo: foo,
+  [bar]: 'bar' // 注意新语法
+}
+
+console.log(obj.foo)
+// foo
+console.log(obj[bar])
+// bar
+            </code></pre>
+          </section>
+          <section>
+            <ul>
+              <li>不可枚举</li>
+            </ul>
+            <pre><code class="javascript hljs" data-trim contenteditable>
+let result = []
+
+for(let a in obj) {
+  result.push(a)
+}
+
+console.log(a)
+// ['foo']
+            </code></pre>
+            <div class="fragment">
+              <ul>
+                <li>不出现在 Object.getOwnPropertyNames 中</li>
+              </ul>
+              <pre><code class="javascript hljs" data-trim contenteditable>
+let keys = Object.getOwnPropertyNames(obj)
+console.log(keys)
+// ['foo']
+              </code></pre>
+            </div>
+            <div class="fragment">
+              <ul>
+                <li>可以使用 Object.getOwnPropertySymbols</li>
+              </ul>
+              <pre><code class="javascript hljs" data-trim contenteditable>
+let smbs = Object.getOwnPropertySymbols(obj)
+console.log(obj[smbs[0]])
+// bar
+              </code></pre>
+            </div>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>iterable</h3>
+            <div class="fragment">
+              <ul>
+                <li>有 <code>[Symbol.iterator]</code> 方法的对象</li>
+              </ul>
+              <pre><code class="javascript hljs" data-trim contenteditable>
+let iterable = {
+  index: 0,
+  [Symbol.iterator]() {
+    return {
+      next: () => {
+        if(this.index < 5) {
+          this.index++
+          return {done: false, value: this.index-1}
+        } else {
+          return {done: true, value: this.index}
+        }
+      }
+    }
+  }
+}
+              </code></pre>
+            </div>
+            <div class="fragment">
+              <ul>
+                <li>用于 <code>for of</code> 循环</li>
+              </ul>
+              <pre><code class="javascript hljs" data-trim contenteditable>
+for(let i of iterable) {
+  console.log(i)
+}
+// 1, 2, 3, 4
+              </code></pre>
+            </div>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>iterator</h3>
+            <pre class="fragment"><code class="javascript hljs" data-trim contenteditable>
+let iterator = iterable[Symbol.iterator]()
+iterator.next()
+// {"value": 1, "done": false}
+            </code></pre>
+            <ul>
+              <li class="fragment">iterable 的 <code>[Symbol.iterator]</code> 方法返回的对象</li>
+              <li class="fragment"><code>next</code> 方法会返回一个对象</li>
+              <ul class="fragment">
+                <li><code>value</code> 是值</li>
+                <li><code>done</code> 表明是否结束迭代</li>
+              </ul>
+            </ul>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>generator</h3>
+            <div class="fragment">
+              <pre><code class="javascript hljs" data-trim contenteditable>
+let numbers = function* () {
+  yield 1
+  yield 2
+  yield 3
+}
+
+let generator = numbers()
+
+generator.next()
+// {"value": 1, "done": false}
+
+for(let i of generator) {
+  console.log(i)
+}
+// 2, 3
+
+generator.next()
+// {"done": true}
+              </code></pre>
+            </div>
+          </section>
+          <section>
+            <ul>
+              <li>代理 yield</li>
+            </ul>
+            <pre><code class="javascript hljs" data-trim contenteditable>
+function* foo() {
+  yield 2
+  yield 3
+}
+
+function* bar() {
+  yield 1
+  foo() // 没有任何效果
+  yield 4
+}
+
+[...bar()]
+// [1, 4]
+
+function* bar() {
+  yield 1
+  yield* foo()
+  yield 4
+}
+
+[...bar()]
+// [1, 2, 3, 4]
+            </code></pre>
+          </section>
+          <section>
+            <ul>
+              <li><code>next</code> 传值</li>
+            </ul>
+            <pre><code class="javascript hljs" data-trim contenteditable>
+function* foo(x) {
+  var y = 2 * (yield (x + 1));
+  var z = yield (y / 3);
+  return (x + y + z);
+}
+
+var it = foo(5);
+
+console.log(it.next());     // { "value": 6, "done": false }
+console.log(it.next(12));   // { "value": 8, "done": false }
+console.log(it.next(13));   // { "value": 42, "done": true }
+            </code></pre>
+          </section>
+
+          <section>
+            <h3>告别 callback hell</h3>
+          </section>
+        </section>
+
+        <section>
+          <h2>模块</h2>
+        </section>
+
+        <section>
+          <section>
+            <h3>export</h3>
+            <pre class="fragment"><code class="javascript hljs" data-trim contenteditable>
+export default foo
+
+export let foo = 'foo'
+
+export {foo, bar}
+
+export {foo as bar}
+
+export {foo as default} // 等价于 export default foo
+            </code></pre>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>import</h3>
+            <pre class="fragment"><code class="javascript hljs" data-trim contenteditable>
+import foo from 'foo'
+
+import {foo, bar} from 'baz'
+
+import {foo as bar} from 'baz'
+
+import {default} from 'foo'
+
+import {deafult as foo} from 'foo'
+
+import foo, {bar, baz} from 'foo'
+
+import * as foo from 'foo'
+
+import 'foo'
+            </code></pre>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>特点</h3>
+            <div class="fragment">
+              <ul>
+                <li>模块是一种绑定</li>
+              </ul>
+              <pre><code class="javascript hljs" data-trim contenteditable>
+//------ lib.js ------
+export let counter = 0;
+export function inc() {
+  counter++;
+}
+
+//------ main.js ------
+import {inc, counter} from 'lib';
+console.log(counter);
+// 0
+inc();
+console.log(counter);
+// 1
+              </code></pre>
+            </div>
+            <ul>
+              <li class="fragment">支持循环依赖</li>
+              <li class="fragment">最佳实践：default export</li>
+            </ul>
+          </section>
+        </section>
+
+        <section>
+          <h3>一些新的 API</h3>
+        </section>
+
+        <section>
+          <h3>Promise</h3>
+          <pre class="fragment"><code class="javascript hljs" data-trim contenteditable>
+let p = new Promise((resolve, reject) => {
+  // ...
+})
+
+p.then(fulfillHandler, rejectHandler)
+  .catch(errorHandler)
+          </code></pre>
+        </section>
+
+        <section>
+          <section>
+            <h3>链式调用</h3>
+            <pre class="fragment"><code class="javascript hljs" data-trim contenteditable>
+let calculate = function(value) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(value + 1)
+    }, 0)
+  })
+}
+
+calculate(1)
+  .then(calculate)
+  .then(calculate)
+  .then(result => console.log(result))
+// 4
+            </code></pre>
+          </section>
+          <section>
+            <ul>
+              <li><code>then</code> 会返回一个新的 promise</li>
+            </ul>
+            <pre><code class="javascript hljs" data-trim contenteditable>
+calculate(1)
+  .then(calculate)
+  .then(result => result + 1)
+  .then(result => console.log(result))
+// 4
+            </code></pre>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>Promise 构造函数的 API</h3>
+            <ul>
+              <li class="fragment"><code>Promise.resolve</code></li>
+              <li class="fragment"><code>Promise.reject</code></li>
+              <li class="fragment"><code>Promise.all(promiseList)</code></li>
+              <li class="fragment"><code>Promise.race(promiseList)</code></li>
+            </ul>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>错误处理</h3>
+            <pre class="fragment"><code class="javascript hljs" data-trim contenteditable>
+let p = () => {
+  console.log('a')
+  return Promise.resolve()
+}
+
+p()
+  .then(() => console.log('b'))
+  .then(() => { throw new Error('error') }) // 为何要加大括号？把 throw 换成 return 如何？
+  .then(() => console.log('c'), () => console.log('d'))
+
+// a, b, d
+            </code></pre>
+          </section>
+          <section>
+            <ul>
+              <li><code>.catch(errorHandler)</code></li>
+            </ul>
+            <pre><code class="javascript hljs" data-trim contenteditable>
+let p = () => {
+  console.log('a')
+  return Promise.resolve()
+}
+
+p()
+  .then(() => console.log('b'))
+  .then(() => { throw new Error('error') })
+  .catch(() => console.log('d'))
+  .catch(() => console.log('e'))
+  .then(() => console.log('f'))
+
+// a, b, d, f
+            </code></pre>
+          </section>
+        </section>
+
+
+        <section>
+          <h3>Map</h3>
+          <pre class="fragment"><code class="javascript hljs" data-trim contenteditable>
+let map = new Map()
+
+map.set('key', 42)
+
+map.get('key')
+// 42
+
+map.has('key')
+// true
+
+map.delete('key')
+
+map.has('key')
+// false
+          </code></pre>
+          <ul>
+            <li class="fragment">Map 的键可以是任意类型的对象</li>
+            <li class="fragment">Map 是 iterable 对象</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Set</h3>
+          <pre class="fragment"><code class="javascript hljs" data-trim contenteditable>
+let set = new Set([1, 2, 2, 3])
+
+set.size
+// 3
+
+for(let i of set) {
+  console.log(i)
+}
+// 1, 2, 3
+
+let o = {foo: 1}
+let s = new Set()
+s.add(o)
+s.add(o)
+s.add({foo: 1})
+
+s.size
+// 2
+s.has({foo: 1})
+// false
+          </code></pre>
+          <ul>
+            <li class="fragment">Set 中元素比较的是其引用值</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>数组</h3>
+          <pre class="fragment"><code class="javascript hljs" data-trim contenteditable>
+let a = ['a', 'b', 'c']
+
+let values = [...a.values()]
+// ['a', 'b', 'c']
+
+let keys = [...a.keys()]
+// [0, 1, 2]
+
+let entries = [...a.entries()]
+[[0,'a'],[1,'b'],[2,'c']]
+
+
+Array.from(a.values())
+// ['a', 'b', 'c']
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>对象</h3>
+          <pre class="fragment"><code class="javascript hljs" data-trim contenteditable>
+let foo = Object.assign({}, {a: 1, b: 2}, {a: 'a', c: 'c'})
+// {a: 'a', b: 2, c: 'c'}
+
+
+let key2 = 'second'
+let bar = {
+  key1: 'hello',
+  [key2 + 'Key']: 'world'
+}
+
+bar.secondKey === 'world'
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Thanks</h2>
+        </section>
+
+      </div>
+
+    </div>
+
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+
+    <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'plugin/zoom-js/zoom.js', async: true },
+          { src: 'plugin/notes/notes.js', async: true }
+        ]
+      });
+
+    </script>
+
+  </body>
+</html>
